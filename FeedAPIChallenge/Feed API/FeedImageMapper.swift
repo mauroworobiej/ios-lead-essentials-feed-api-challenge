@@ -9,7 +9,6 @@
 import Foundation
 
 class FeedImageMapper {
-	
 	private struct Root: Decodable {
 		let items: [ItemModel]
 
