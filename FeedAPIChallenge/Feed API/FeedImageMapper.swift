@@ -9,6 +9,15 @@
 import Foundation
 
 class FeedImageMapper {
+	
+	private struct Root: Decodable {
+		let items: [ItemModel]
+
+		var feedImage: [FeedImage] {
+			return items.map { $0.feedImage }
+		}
+	}
+
 	private struct ItemModel: Decodable {
 		let id: UUID
 		let description: String?
@@ -31,11 +40,11 @@ class FeedImageMapper {
 
 	static func map(_ data: Data, from response: HTTPURLResponse) -> FeedLoader.Result {
 		guard response.statusCode == OK_200,
-		      let items = try? JSONDecoder().decode([ItemModel].self, from: data)
+		      let items = try? JSONDecoder().decode(Root.self, from: data)
 		else {
 			return .failure(RemoteFeedLoader.Error.invalidData)
 		}
 
-		return .success(items.map { $0.feedImage })
+		return .success(items.feedImage)
 	}
 }
