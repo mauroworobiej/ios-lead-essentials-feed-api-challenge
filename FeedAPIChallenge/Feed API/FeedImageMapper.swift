@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FeedImageMapper {
+final class FeedImageMapper {
 	private struct Root: Decodable {
 		let items: [ItemModel]
 
@@ -35,7 +35,7 @@ class FeedImageMapper {
 		}
 	}
 
-	static var OK_200: Int { 200 }
+	private static var OK_200: Int { 200 }
 
 	static func map(_ data: Data, from response: HTTPURLResponse) -> FeedLoader.Result {
 		guard response.statusCode == OK_200,
