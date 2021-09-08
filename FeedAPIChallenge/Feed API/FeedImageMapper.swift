@@ -12,7 +12,7 @@ final class FeedImageMapper {
 	private struct Root: Decodable {
 		let items: [ItemModel]
 
-		var feedImage: [FeedImage] {
+		var feedImages: [FeedImage] {
 			return items.map { $0.feedImage }
 		}
 	}
@@ -44,6 +44,6 @@ final class FeedImageMapper {
 			return .failure(RemoteFeedLoader.Error.invalidData)
 		}
 
-		return .success(items.feedImage)
+		return .success(items.feedImages)
 	}
 }
